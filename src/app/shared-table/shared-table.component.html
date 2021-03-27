@@ -1,0 +1,66 @@
+<div class="shredTable">
+
+  <button mat-raised-button color="primary" (click)="exportAsExcel()">Export as Excel</button>
+  
+  <div class="filterHeader">
+      <mat-form-field >
+        <input matInput (keyup)="applyFilter($event.target.value)" placeholder="Filter">
+      </mat-form-field>
+  </div>
+  <div #TABLE>
+    <mat-table #dataTable [dataSource]="dataSource" matSort multiTemplateDataRows>
+
+        <!-- Toggle Button Start -->
+        <ng-container matColumnDef="trigger">
+            <th mat-header-cell *matHeaderCellDef fxFlex="70px" style="flex-basis: 50px;">
+                <mat-icon>menu</mat-icon>
+            </th>
+            <td mat-cell *matCellDef="let row; let i = dataIndex;" fxFlex="70px" style="flex-basis: 50px;">
+                <span  (click)="expandedElement[row.recId] = !expandedElement[row.recId]" 
+                [ngClass]="[expandedElement[row.recId] ?  'active' : 'inActive']"  class="btnToggleExpand"></span>
+            </td>
+        </ng-container>
+        <!-- Toggle Button End -->
+    
+    
+        <ng-container [matColumnDef]="column.id" *ngFor="let column of visibleColumns">
+            <!-- Header cell -->
+            <th mat-header-cell *matHeaderCellDef [fxFlex]="column.width + 'px'" mat-sort-header [style.flex-basis]="column.width + 'px'">{{ column.label }}</th>
+            
+            <td mat-cell *matCellDef="let row" [fxFlex]="column.width + 'px'" [style.background-color]="sort?.active==column.id?'rgba(0,0,0,0.05)':null" [style.flex-basis]="column.width + 'px'">
+                  {{ row[column.id] }}
+            </td>
+    
+        </ng-container>
+    
+    
+        <ng-container matColumnDef="hidden">
+            <td mat-cell *matCellDef="let row;let i = dataIndex;" class="matCell" fxLayout="column" fxLayoutAlign="center start">
+                <ul>
+                    <li *ngFor="let hiddenColumn of hiddenColumns" fxLayout="row" class="m8">
+                        <strong>
+                            {{ hiddenColumn.label }}: 
+                        </strong>
+                        <span>
+                            {{ row[hiddenColumn.id] }}
+                        </span>
+                    </li>
+                </ul>
+            </td>
+        </ng-container>
+    
+    
+        <tr mat-header-row *matHeaderRowDef="visibleColumnsIds" class="matHeaderRow"></tr>
+    
+        <tr mat-row *matRowDef="let row; let i = dataIndex; columns: visibleColumnsIds" class="matRowVisible visible-row-{{row.recId}}"></tr>
+    
+        <!-- Body row definition for hidden columns -->
+        <tr mat-row *matRowDef="let row; let i = dataIndex; columns: ['hidden'];" [@detailExpand]="expandedElement.length && expandedElement[row.recId] ? 'expanded' : 'collapsed'"
+            style="overflow: hidden" class="matRowHidden hidden-row-{{row.recId}} hidColLength-{{hiddenColumns.length}}" [ngClass]="expandedElement[row.recId] ? 'expanded' : 'collapsed'"></tr>
+    
+    </mat-table>
+  </div>
+
+
+<mat-paginator [length]="length" [pageSize]="pageSize" [pageSizeOptions]="pageSizeOptions" (page)="pageEvent = $event"></mat-paginator>
+</div>

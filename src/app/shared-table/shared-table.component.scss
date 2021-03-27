@@ -1,0 +1,137 @@
+.m8{
+  margin: 8px;
+}
+.expanded {
+  height: min-content !important;
+  visibility: visible !important;
+}
+.hidColLength-0{
+  height: 0px !important;
+  min-height: 0px !important;
+  visibility: hidden !important;
+}
+
+.btnToggleExpand{
+  position: relative;
+  display: inline-block;
+  width: 35px;
+  height: 35px;
+  cursor: pointer;
+
+  &.active{
+
+    &:before{
+      content: '-';
+      background-color: #d33333;
+    }
+  }
+
+  &:before{
+      top: 9px;
+      left: 4px;
+      height: 14px;
+      width: 14px;
+      display: block;
+      position: absolute;
+      color: white;
+      border: 2px solid white;
+      border-radius: 14px;
+      box-shadow: 0 0 3px #444;
+      box-sizing: content-box;
+      text-align: center;
+      text-indent: 0 !important;
+      font-family: 'Courier New', Courier, monospace;
+      line-height: 14px;
+      content: '+';
+      background-color: #31b131;
+  }
+
+}
+
+.filterHeader {
+padding: 0 24px;
+}
+
+.mat-column-hidden{
+  display: block;
+}
+
+td.mat-column-trigger{
+  border-bottom-width: 0 !important;
+}
+
+th.mat-header-cell,td.mat-cell,tr.mat-header-row,tr.matRowVisible,tr.matRowHidden {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  overflow: hidden;
+  min-height: inherit;
+}
+
+th.mat-header-cell{
+  font-size: 14px;
+  font-weight: bold;
+  justify-content: space-around;
+  padding-left: 25px;
+}
+
+
+td.mat-cell{
+  border-bottom-width: 0;
+  padding: 10px;
+  border-right: 1px solid rgba(0,0,0,.12);
+}
+
+td.mat-column-hidden{
+  display: block;
+}
+
+tr.mat-header-row{
+  border-bottom-width: 1px;
+  min-height: 56px;
+}
+
+tr.matRowVisible{
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-style: solid;
+  box-sizing: border-box;
+  min-height: 60px;
+  border-color: rgba(0,0,0,.12);
+}
+
+
+tr:nth-child(4n+2){
+  background: rgba(0,0,0,.03);
+}
+
+tr.matRowHidden {
+  border-width: 0;
+  border-bottom-width: 1px;
+  border-style: solid;
+  box-sizing: border-box;
+  border-bottom-color: rgba(0,0,0,.12);
+}
+
+td.mat-column-hidden > ul{
+  list-style-type: none;
+  display: inline-block;
+  padding-left: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+td.mat-column-hidden > ul li{
+  border-bottom: 1px solid rgba(0,0,0,.12);
+  padding-bottom: 10px;
+}
+
+td.mat-column-hidden > ul li:last-child{
+  border-bottom: none;
+  padding-bottom: 0;
+}
+
+td.mat-column-hidden > ul strong{
+  min-width: 90px;
+  display: inline-block;
+}
